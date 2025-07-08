@@ -121,7 +121,10 @@
     polychromatic
     lshw
     brave
-    #obsidian
+    rustup
+    clang
+    libgcc
+    gnumake
   ];
 
   # OpenRazer
@@ -212,5 +215,8 @@
   
   hardware.bluetooth.enable = true; # enables support for Bluetooth
   hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
+  
+  # Run unpatched binaries
+  programs.nix-ld.enable = true;
 
 }
