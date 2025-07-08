@@ -121,6 +121,7 @@
     polychromatic
     lshw
     brave
+    #obsidian
   ];
 
   # OpenRazer
@@ -199,14 +200,17 @@
     prime = {
       sync.enable = true;
 
-		  # Make sure to use the correct Bus ID values for your system!
-		  nvidiaBusId = "PCI:197:0:0";
+      # Make sure to use the correct Bus ID values for your system!
+      nvidiaBusId = "PCI:197:0:0";
       amdgpuBusId = "PCI:198:0:0";
-	  };
+    };
 
   };
 
   # Wayland Ozone - makes chromium work
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
+  
+  hardware.bluetooth.enable = true; # enables support for Bluetooth
+  hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
 
 }

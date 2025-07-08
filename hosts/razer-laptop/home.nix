@@ -38,6 +38,7 @@
     nil
     nixd
     obsidian
+    jetbrains-toolbox
   ];
 
   # basic configuration of git, please change to your own
