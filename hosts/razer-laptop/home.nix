@@ -16,6 +16,9 @@ in
     # want to update the value, then make sure to first check the Home Manager
     # release notes.
     home.stateVersion = "25.05"; # Please read the comment before changing.
+    
+    # This adds flake paths to nix path...???
+    #nix.nixPath = ["nixpkgs=flake:nixpkgs"];
 
     # The home.packages option allows you to install Nix packages into your
     # environment.
@@ -41,6 +44,12 @@ in
       nixd
       obsidian
       pkgsUnstable.jetbrains-toolbox # jetbrains-toolbox
+      signal-desktop
+      rust-analyzer
+      
+      (python313.withPackages (ppkgs: [
+        ppkgs.numpy
+      ]))
     ];
 
     # basic configuration of git, please change to your own
@@ -57,7 +66,17 @@ in
       #enableNushellIntegration = true;
       #enableZshIntegration = true;
     };
-    programs.bash.enable = true; # home manager needs to modify .bashrc for zoxide to work
+    
+    programs.direnv = {
+      enable = true;
+      nix-direnv.enable = true;
+      enableBashIntegration = true;
+      #enableFishIntegration= true;
+      #enableNushellIntegration = true;
+      #enableZshIntegration = true;
+    };
+    
+    programs.bash.enable = true; # home manager needs to modify .bashrc
 
     # Home Manager is pretty good at managing dotfiles. The primary way to manage
     # plain files is through 'home.file'.

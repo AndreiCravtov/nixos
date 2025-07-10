@@ -10,11 +10,16 @@
       ./hardware-configuration.nix
     ];
 
-  # Enable flakes
-  nix.settings.experimental-features = ["nix-command" "flakes"];
-
   # Change path
-  nix.nixPath = [ "/home/johndoe/nixos" ];
+  nix = {
+    #nixPath = [ "nixpkgs=/run/current-system/nixpkgs" ];
+    #registry.nixpkgs.flake = inputs.nixpkgs;
+    settings = {
+      experimental-features = [ "nix-command" "flakes" ];
+    };
+    #channel.enable = true;
+  };
+  #environment.etc."nix/path/nixpkgs".source = inputs.nixpkgs;
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -106,7 +111,7 @@
   };
 
   # Install firefox.
-  programs.firefox.enable = true;
+  # programs.firefox.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -125,6 +130,8 @@
     clang
     libgcc
     gnumake
+    pkg-config
+    openssl
   ];
 
   # OpenRazer
@@ -218,5 +225,7 @@
   
   # Run unpatched binaries
   programs.nix-ld.enable = true;
+  #programs.nix-ld.libraries = with pkgs; [
+  #];
 
 }
