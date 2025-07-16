@@ -65,7 +65,7 @@ in
       enableBashIntegration= true;
       #enableFishIntegration= true;
       #enableNushellIntegration = true;
-      #enableZshIntegration = true;
+      enableZshIntegration = true;
     };
     
     programs.direnv = {
@@ -74,7 +74,7 @@ in
       enableBashIntegration = true;
       #enableFishIntegration= true;
       #enableNushellIntegration = true;
-      #enableZshIntegration = true;
+      enableZshIntegration = true;
     };
     
     programs.chromium = {
@@ -83,6 +83,27 @@ in
     };
     
     programs.bash.enable = true; # home manager needs to modify .bashrc
+    
+    programs.zsh = { # home manager needs to modify .zshrc
+      enable = true;
+      enableCompletion = true;
+      autosuggestion.enable = true;
+      syntaxHighlighting.enable = true;
+
+      shellAliases = {
+        ll = "ls -l";
+        update = "sudo nixos-rebuild switch";
+      };
+      history.size = 10000;
+      
+      zplug = { # Extension management
+        enable = true;
+        plugins = [
+          { name = "zsh-users/zsh-autosuggestions"; } # Simple plugin installation
+          { name = "romkatv/powerlevel10k"; tags = [ as:theme depth:1 ]; } # Installations with additional options. For the list of options, please refer to Zplug README.
+        ];
+      };
+    };
 
     # Home Manager is pretty good at managing dotfiles. The primary way to manage
     # plain files is through 'home.file'.

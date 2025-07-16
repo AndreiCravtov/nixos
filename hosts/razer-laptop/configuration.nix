@@ -228,4 +228,15 @@
   #programs.nix-ld.libraries = with pkgs; [
   #];
 
+  # Enable ZSH systemwide & make default
+  programs.zsh.enable = true;
+  users.defaultUserShell = pkgs.zsh;
+  
+  # Configure fonts
+  fonts = {
+    enableDefaultPackages = true;
+    packages = with pkgs; [
+      nerd-fonts.jetbrains-mono
+    ];
+  };
 }
