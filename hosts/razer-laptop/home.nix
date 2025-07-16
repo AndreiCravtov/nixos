@@ -46,6 +46,7 @@ in
       pkgsUnstable.jetbrains-toolbox # jetbrains-toolbox
       signal-desktop
       rust-analyzer
+      telegram-desktop
       
       (python313.withPackages (ppkgs: [
         ppkgs.numpy
@@ -74,6 +75,11 @@ in
       #enableFishIntegration= true;
       #enableNushellIntegration = true;
       #enableZshIntegration = true;
+    };
+    
+    programs.chromium = {
+      enable = true;
+      package = pkgs.ungoogled-chromium;
     };
     
     programs.bash.enable = true; # home manager needs to modify .bashrc
