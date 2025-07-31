@@ -47,6 +47,7 @@ in
       signal-desktop
       rust-analyzer
       telegram-desktop
+      neofetch
       
       (python313.withPackages (ppkgs: [
         ppkgs.numpy
@@ -90,11 +91,19 @@ in
       autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
 
+      # initial shell run stuff
+      initExtraBeforeCompInit = ''
+        # p10k instant prompt
+        P10K_INSTANT_PROMPT="$XDG_CACHE_HOME/p10k-instant-prompt-''${(%):-%n}.zsh"
+        [[ ! -r "$P10K_INSTANT_PROMPT" ]] || source "$P10K_INSTANT_PROMPT"
+      '';
+
       shellAliases = {
         ll = "ls -l";
         update = "sudo nixos-rebuild switch";
       };
       history.size = 10000;
+      history.ignoreAllDups = true;
       
       zplug = { # Extension management
         enable = true;

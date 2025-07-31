@@ -239,4 +239,19 @@
       nerd-fonts.jetbrains-mono
     ];
   };
+  
+  # Configure Bonjour for mDNS discovery
+  services.avahi = {
+    enable = true;
+    ipv4 = true;
+    ipv6 = true;
+    nssmdns4 = true;
+    nssmdns6 = true;
+    openFirewall = true;
+    publish = {
+      enable = true;
+      userServices = true;
+      addresses = true;
+    };
+  };
 }
