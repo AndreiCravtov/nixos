@@ -2,6 +2,12 @@
 let
 in
   {
+    imports = [
+      ./../../modules/home-manager/kitty.nix
+    ];
+
+    kitty.enable = true; # Enable kitty configuration
+
     # Home Manager needs a bit of information about you and the paths it should
     # manage.
     home.username = "johndoe";
