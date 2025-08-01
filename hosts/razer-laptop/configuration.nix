@@ -8,6 +8,9 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      
+      # Home manager
+      inputs.home-manager.nixosModules.default
     ];
 
   # Change path

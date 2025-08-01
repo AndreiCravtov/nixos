@@ -1,6 +1,5 @@
 { config, pkgs, inputs, ... }:
 let
-  pkgsUnstable = import inputs.nixpkgs { system = "x86_64-linux"; config.allowUnfree = true; };
 in
   {
     # Home Manager needs a bit of information about you and the paths it should
@@ -43,7 +42,7 @@ in
       nil
       nixd
       obsidian
-      pkgsUnstable.jetbrains-toolbox # jetbrains-toolbox
+      jetbrains-toolbox # jetbrains-toolbox
       signal-desktop
       rust-analyzer
       telegram-desktop
@@ -100,7 +99,6 @@ in
 
       shellAliases = {
         ll = "ls -l";
-        update = "sudo nixos-rebuild switch";
       };
       history.size = 10000;
       history.ignoreAllDups = true;
