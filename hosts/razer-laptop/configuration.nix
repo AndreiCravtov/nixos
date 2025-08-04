@@ -4,6 +4,7 @@
 
 {
   config,
+  lib,
   pkgs,
   inputs,
   ...
@@ -18,7 +19,7 @@
     ./../../modules/nixos/flathub.nix
   ];
 
-  flathub.enable = true;
+  flathub.enable = true; # Enable flathub configuration
 
   # Change path
   nix = {
@@ -189,6 +190,9 @@
   hardware.graphics = {
     enable = true;
   };
+
+  # FIXES: https://nixos.wiki/wiki/Hardware/Razer#Lid_reopen_hybernate_issue
+  boot.kernelParams = [ "button.lid_init_state=open" ];
 
   # Load nvidia driver for Xorg and Wayland
   services.xserver.videoDrivers = [ "nvidia" ];
