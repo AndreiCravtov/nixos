@@ -15,10 +15,10 @@
     ./hardware-configuration.nix
 
     # Enable flathub config
-    # ./../../modules/nixos/flathub.nix
+    ./../../modules/nixos/flathub.nix
   ];
 
-  # flathub.enable = true;
+  flathub.enable = true;
 
   # Change path
   nix = {
