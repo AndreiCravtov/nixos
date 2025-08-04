@@ -8,27 +8,39 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nix-flatpak.url = "github:gmodena/nix-flatpak"; # unstable branch. Use github:gmodena/nix-flatpak/?ref=<tag> to pin releases.
   };
 
-  outputs = { self, nixpkgs, ... }@inputs:
-  let
-    system = "x86_64-linux";
+  outputs =
+    { self, nixpkgs, ... }@inputs:
+    let
+      system = "x86_64-linux";
 
-    pkgs = import nixpkgs {
-      inherit system;
+      pkgs = import nixpkgs {
+        inherit system;
 
-      config = {
-        allowUnfree = true;
+        config = {
+          allowUnfree = true;
+        };
       };
+
+      # Parametrized config
+      mkSystem =
+        path:
+        nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs; };
+          modules = [
+            inputs.home-manager.nixosModules.default # Home manager
+            inputs.nix-flatpak.nixosModules.nix-flatpak # Flatpak management
+            path # Main config
+          ];
+        };
+
+      # Concrete configs
+      razerLaptop = mkSystem ./hosts/razer-laptop/configuration.nix;
+    in
+    {
+      nixosConfigurations.nixos = razerLaptop; # use "nixos" as the name of the configuration
     };
-  in {
-    # use "nixos", or your hostname as the name of the configuration
-    # it's a better practice than "default" shown in the video
-    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-      specialArgs = {inherit inputs;};
-      modules = [
-        ./hosts/razer-laptop/configuration.nix
-      ];
-    };
-  };
 }

@@ -2,23 +2,33 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      
-      # Home manager
-      inputs.home-manager.nixosModules.default
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+
+    # Enable flathub config
+    # ./../../modules/nixos/flathub.nix
+  ];
+
+  # flathub.enable = true;
 
   # Change path
   nix = {
     #nixPath = [ "nixpkgs=/run/current-system/nixpkgs" ];
     #registry.nixpkgs.flake = inputs.nixpkgs;
     settings = {
-      experimental-features = [ "nix-command" "flakes" ];
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
     };
     #channel.enable = true;
   };
@@ -28,7 +38,8 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  boot.initrd.luks.devices."luks-06c8e737-5f34-46ae-8873-e1bbcdb7918e".device = "/dev/disk/by-uuid/06c8e737-5f34-46ae-8873-e1bbcdb7918e";
+  boot.initrd.luks.devices."luks-06c8e737-5f34-46ae-8873-e1bbcdb7918e".device =
+    "/dev/disk/by-uuid/06c8e737-5f34-46ae-8873-e1bbcdb7918e";
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -61,8 +72,8 @@
   services.xserver.enable = true;
 
   # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
+  services.desktopManager.gnome.enable = true;
+  services.displayManager.gdm.enable = true;
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -99,9 +110,13 @@
   users.users.johndoe = {
     isNormalUser = true;
     description = "John Doe";
-    extraGroups = [ "networkmanager" "wheel" "openrazer" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "openrazer"
+    ];
     packages = with pkgs; [
-    #  thunderbird
+      #  thunderbird
     ];
   };
 
@@ -122,7 +137,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
     vscode
     openrazer-daemon
@@ -139,7 +154,6 @@
 
   # OpenRazer
   hardware.openrazer.enable = true;
-
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -177,7 +191,7 @@
   };
 
   # Load nvidia driver for Xorg and Wayland
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.nvidia = {
 
@@ -186,7 +200,7 @@
 
     # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
     # Enable this if you have graphical corruption issues or application crashes after waking
-    # up from sleep. This fixes it by saving the entire VRAM memory to /tmp/ instead 
+    # up from sleep. This fixes it by saving the entire VRAM memory to /tmp/ instead
     # of just the bare essentials.
     powerManagement.enable = true;
 
@@ -196,19 +210,19 @@
 
     # Use the NVidia open source kernel module (not to be confused with the
     # independent third-party "nouveau" open source driver).
-    # Support is limited to the Turing and later architectures. Full list of 
-    # supported GPUs is at: 
-    # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus 
+    # Support is limited to the Turing and later architectures. Full list of
+    # supported GPUs is at:
+    # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus
     # Only available from driver 515.43.04+
     open = true;
 
     # Enable the Nvidia settings menu,
-	  # accessible via `nvidia-settings`.
+    # accessible via `nvidia-settings`.
     nvidiaSettings = true;
 
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
     package = config.boot.kernelPackages.nvidiaPackages.stable;
-    
+
     # Prime config
     prime = {
       sync.enable = true;
@@ -222,10 +236,10 @@
 
   # Wayland Ozone - makes chromium work
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
-  
+
   hardware.bluetooth.enable = true; # enables support for Bluetooth
   hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
-  
+
   # Run unpatched binaries
   programs.nix-ld.enable = true;
   #programs.nix-ld.libraries = with pkgs; [
@@ -234,7 +248,7 @@
   # Enable ZSH systemwide & make default
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
-  
+
   # Configure fonts
   fonts = {
     enableDefaultPackages = true;
@@ -242,7 +256,7 @@
       nerd-fonts.jetbrains-mono
     ];
   };
-  
+
   # Configure Bonjour for mDNS discovery
   services.avahi = {
     enable = true;
