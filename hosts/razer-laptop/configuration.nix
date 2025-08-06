@@ -19,6 +19,9 @@
     ./../../modules/nixos/flathub.nix
   ];
 
+  # Update linux kernel to unstable (latest) from flakes packages
+  #boot.kernelPackages = pkgs.linuxPackages; (already latest???)
+
   flathub.enable = true; # Enable flathub configuration
 
   # Change path
@@ -225,7 +228,7 @@
     nvidiaSettings = true;
 
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    package = config.boot.kernelPackages.nvidiaPackages.beta;
 
     # Prime config
     prime = {
