@@ -210,11 +210,11 @@
     # up from sleep. This fixes it by saving the entire VRAM memory to /tmp/ instead
     # of just the bare essentials.
     powerManagement = {
-      enable = false;
+      enable = true;
 
       # Fine-grained power management. Turns off GPU when not in use.
       # Experimental and only works on modern Nvidia GPUs (Turing or newer).
-      finegrained = false;
+      finegrained = true;
     };
 
     # Use the NVidia open source kernel module (not to be confused with the
@@ -234,7 +234,10 @@
 
     # Prime config
     prime = {
-      sync.enable = true;
+      offload = {
+        enable = true;
+        enableOffloadCmd = true;
+      };
 
       # Make sure to use the correct Bus ID values for your system!
       nvidiaBusId = "PCI:197:0:0";
