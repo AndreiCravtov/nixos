@@ -59,6 +59,8 @@ in
     rust-analyzer
     telegram-desktop
     neofetch
+    slack
+    
 
     (python313.withPackages (ppkgs: [
       ppkgs.numpy
