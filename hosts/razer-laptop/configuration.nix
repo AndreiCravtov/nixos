@@ -283,4 +283,7 @@
       addresses = true;
     };
   };
+  
+  # Enable lldpd for LLDP discovery
+  services.lldpd.enable = true;
 }

@@ -61,9 +61,13 @@ in
     neofetch
     slack
     
+    inkscape
 
     (python313.withPackages (ppkgs: [
       ppkgs.numpy
+    ]))
+    
+    (ruby.withPackages (ps: [
     ]))
   ];
 
