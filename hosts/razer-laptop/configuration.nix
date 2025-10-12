@@ -198,7 +198,10 @@
   boot.kernelParams = [ "button.lid_init_state=open" ];
 
   # Load nvidia driver for Xorg and Wayland
-  services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver.videoDrivers = [
+    "amdgpu" # example for AMD iGPU; use "modesetting" here instead if your iGPU is Intel
+    "nvidia"
+  ];
 
   hardware.nvidia = {
 
@@ -230,7 +233,7 @@
     nvidiaSettings = true;
 
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
-    package = config.boot.kernelPackages.nvidiaPackages.beta;
+    package = config.boot.kernelPackages.nvidiaPackages.latest;
 
     # Prime config
     prime = {
@@ -269,21 +272,21 @@
     ];
   };
 
-  # Configure Bonjour for mDNS discovery
-  services.avahi = {
-    enable = true;
-    ipv4 = true;
-    ipv6 = true;
-    nssmdns4 = true;
-    nssmdns6 = true;
-    openFirewall = true;
-    publish = {
-      enable = true;
-      userServices = true;
-      addresses = true;
-    };
-  };
-  
+  # # Configure Bonjour for mDNS discovery
+  # services.avahi = {
+  #   enable = true;
+  #   ipv4 = true;
+  #   ipv6 = true;
+  #   nssmdns4 = true;
+  #   nssmdns6 = true;
+  #   openFirewall = true;
+  #   publish = {
+  #     enable = true;
+  #     userServices = true;
+  #     addresses = true;
+  #   };
+  # };
+
   # Enable lldpd for LLDP discovery
   services.lldpd.enable = true;
 }
