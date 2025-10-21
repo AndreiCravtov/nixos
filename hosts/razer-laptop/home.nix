@@ -60,7 +60,6 @@ in
     telegram-desktop
     neofetch
     slack
-
     inkscape
 
     (python313.withPackages (ppkgs: [
