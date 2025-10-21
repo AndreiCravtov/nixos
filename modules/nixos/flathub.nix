@@ -45,6 +45,7 @@
       # Add here the flatpaks you want to install
       packages = [
         "org.vinegarhq.Sober"
+        "org.localsend.localsend_app"
         #{ appId = "com.brave.Browser"; origin = "flathub"; }
         #"com.obsproject.Studio"
         #"im.riot.Riot"
